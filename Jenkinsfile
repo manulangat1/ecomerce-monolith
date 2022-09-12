@@ -13,7 +13,7 @@ pipeline {
         stage("Check version and bump it") { 
             steps { 
                 script { 
-                    echo:" build number ${BUILD_NUMBER}"
+                    echo" build number ${BUILD_NUMBER}"
                 }
             }
         }
