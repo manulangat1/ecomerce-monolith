@@ -1,4 +1,5 @@
 #! env/bin/groovy 
+def version 
 pipeline {
     agent any 
 
@@ -6,14 +7,25 @@ pipeline {
         stage("Init the application") {
             steps { 
                 script {
-                    echo "Hello there"
+                    echo "Hello there, ${BRANCH_NAME}"
                 }
             }
         }
-        stage("Wow here i am") { 
+        stage("Read the current version of the application") { 
+            steps { 
+                script { 
+                    echo" build number ${BUILD_NUMBER}"
+                    def matcher = readFile("__init__.py") =~  "__version__=(.+)"
+                    echo "${matcher[0][1]}"
+                    version = matcher[0][1]
+                }
+            }
+        }
+        stage("Test stage") { 
             steps { 
                 script{
                     echo "now what"
+                    sh "pytest"
                 }
             }
         }
@@ -24,5 +36,6 @@ pipeline {
                 }
             }
         }
+
     }
 }
