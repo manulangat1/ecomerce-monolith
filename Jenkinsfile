@@ -25,7 +25,7 @@ pipeline {
             steps { 
                 script{
                     echo "now what"
-                    sh "pytest"
+                    // sh "pytest"
                 }
             }
         }
