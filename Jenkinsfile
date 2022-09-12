@@ -6,7 +6,7 @@ pipeline {
         stage("Init the application") {
             steps { 
                 script {
-                    sh "Hello there"
+                    echo "Hello there"
                 }
             }
         }
