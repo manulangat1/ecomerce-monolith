@@ -6,7 +6,14 @@ pipeline {
         stage("Init the application") {
             steps { 
                 script {
-                    echo "Hello there"
+                    echo "Hello there, ${BRANCH_NAME}"
+                }
+            }
+        }
+        stage("Check version and bump it") { 
+            steps { 
+                script { 
+                    echo:" build number ${BUILD_NUMBER}"
                 }
             }
         }
