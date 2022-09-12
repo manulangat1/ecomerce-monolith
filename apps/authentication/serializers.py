@@ -4,7 +4,7 @@ from rest_framework import serializers
 #django imports 
 from django.contrib.auth import get_user_model, authenticate
 #local imports
-# from apps.authentication.models import User 
+from apps.authentication.models import Profile
 
 
 # instantiate our user model 
@@ -21,6 +21,18 @@ class UserSerializer(serializers.ModelSerializer):
             "first_name",
             "last_name"
         )
+
+class ProfileSerializer(serializers.ModelSerializer):
+    username =  serializers.CharField(source="user.username")
+    class Meta:
+        model = Profile 
+        fields = ( 
+            "username",
+            "city",
+            "state",
+            "country"
+        )
+    
 
 class RegisterSerializer(serializers.ModelSerializer):
     class Meta:

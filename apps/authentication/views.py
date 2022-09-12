@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from rest_framework import views, generics, permissions, status
 from rest_framework.response import Response
-#local imports
-from apps.authentication.serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
+#local imports
+from apps.authentication.serializers import ProfileSerializer, UserSerializer, RegisterSerializer, LoginSerializer
+from apps.authentication.models import Profile
+from apps.authentication.exceptions import ProfileNotFound
 # third party imports
 from knox.models import AuthToken
 
@@ -43,7 +45,11 @@ class UserAPI(generics.GenericAPIView):
     )
     def get(self,request):
         user = self.request.user 
-        serializer = UserSerializer(user)
+        try: 
+            profile = Profile.objects.get(user=user)
+        except Profile.DoesNotExist:
+            raise ProfileNotFound
+        serializer = ProfileSerializer(profile)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 
