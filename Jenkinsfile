@@ -38,7 +38,7 @@ pipeline {
         }
         stage('Deploy the version and tag'){
             steps {
-                scripts {
+                script {
                     sh "npx semantic-release"
                 }
             }
