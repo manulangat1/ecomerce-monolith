@@ -17,5 +17,12 @@ pipeline {
                 }
             }
         }
+        stage("Build") { 
+            steps { 
+                script{
+                    echo "now what"
+                }
+            }
+        }
     }
 }
