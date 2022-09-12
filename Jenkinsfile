@@ -36,6 +36,12 @@ pipeline {
                 }
             }
         }
-
+        stage('Deploy the version and tag'){
+            steps {
+                scripts {
+                    sh "npx semantic-release"
+                }
+            }
+        }
     }
 }
