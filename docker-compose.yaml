@@ -13,10 +13,10 @@ services:
 
     expose:
       - 8000
-    env_file:
-      - ./.env
-    # environment:
-    #   - ENVIROMENT=development
+    # env_file:
+    #   - ./.env
+    environment:
+      - ENVIROMENT=development
   nginx:
     build: 
       context: ./docker/local/nginx
