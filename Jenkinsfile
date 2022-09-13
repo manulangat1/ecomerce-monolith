@@ -1,6 +1,6 @@
 #! env/bin/groovy 
 def version 
-def newVersion
+// def newVersion
 pipeline {
     agent any 
 
@@ -36,13 +36,15 @@ pipeline {
                     echo "now what"
                     // sh "docker-compose -f docker-compose.yaml up -d "
                     sh ''' 
-                    docker-compose -f docker-compose.yaml up -d
-                    // docker-compose -f docker-compose.yaml  exec web python3 manage.py migrate
-                    docker-compose -f docker-compose.yaml  logs -f
+                    docker system prune -a -f 
+                    docker-compose -f docker-compose.yaml down
+                    docker-compose -f docker-compose.yaml up --build   -d
+                    docker-compose -f docker-compose.yaml  exec -T web bump2version minor
                     '''
                     // sh "docker ps"
                     // sh "docker-compose -f docker-compose.yaml  exec web python3 manage.py migrate"
                     // sh "docker-compose -f docker-compose.yaml  logs -f"
+                    // docker-compose -f docker-compose.yaml  logs -f
                 }
             }
         }
@@ -53,9 +55,9 @@ pipeline {
                     echo" build number ${BUILD_NUMBER}"
                     def matchers = readFile("__init__.py") =~  "version = (.+)"
                     echo "${matchers[0][1]}"
-                    newVersion = matchers[0][1]
-                    // sh "docker-compose -f docker-compose.yaml  exec web python3 manage.py migrate  "
-                    // sh "bump2version minor"
+                    // def newVersion = matchers[0][1]
+                    // echo "${newVersion}"
+                    // sh "docker-compose -f docker-compose.yaml down"
 
                     // withCredentials([usernamePassword(credentialsId:"github-credentials", usernameVariable:'USER', passwordVariable:'PASS')]) { 
                     //     sh   "git config --global user.name jenkins"
@@ -67,3 +69,11 @@ pipeline {
         }
     }
 }
+// post{ 
+//     always { 
+//         sh '''
+//         docker system prune -a -f 
+//         docker-compose -f docker-compose.yaml down
+//         '''
+//     }
+// }

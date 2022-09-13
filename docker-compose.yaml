@@ -4,9 +4,10 @@ services:
   web:
     build: 
       context: .
-      dockerfile: ./docker/local/django/Dockerfile
+      dockerfile: Dockerfile
     command: python3 manage.py runserver
     # gunicorn mmgrupp_project.wsgi:application --bind 0.0.0.0:8000
+    image: manulangat/django-ecomerce-monolith
     volumes:
       - static_volume:/home/app/web/staticfiles
       - .:/app
@@ -24,7 +25,7 @@ services:
     volumes:
       - static_volume:/home/app/web/staticfiles
     ports:
-      - "1338:80"
+      - "1337:80"
     depends_on:
       - web
     restart: always
