@@ -16,6 +16,7 @@ pipeline {
                 script{
                     echo "Now creating a virtualenv"
                     sh "python3 -m virtualenv venv"
+                    sh "chmod +x venv/"
                     sh "source venv/bin/activate"
                 }
             }
