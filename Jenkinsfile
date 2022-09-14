@@ -22,6 +22,14 @@ pipeline {
                 }
             }
         }
+        stage("Install all packages") { 
+            steps{
+                script{ 
+                    echo "I am installing all my dependancies"
+                    sh "pip install -r requirements.txt"
+                }
+            }
+        }
         stage("Read the current version of the application") { 
             steps { 
                 script { 
