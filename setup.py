@@ -5,6 +5,6 @@ setup (
      name="Monolith ecommerce application",
      author="Emmanuel Langat",
      author_email="emmanuel@kipchirchirlangat.com",
-     version = "0.0.5",
+     version = "0.0.7",
      packages=find_packages()
 )
