@@ -3,12 +3,20 @@ def version
 // def newVersion
 pipeline {
     agent any 
-
     stages { 
         stage("Init the application") {
             steps { 
                 script {
                     echo "Hello there, ${BRANCH_NAME}"
+                }
+            }
+        }
+        stage("Create a virtual enviroment") { 
+            steps{
+                script{
+                    echo "Now creating a virtualenv"
+                    sh "python3 -m virtualenv venv"
+                    sh "source venv/bin/activate"
                 }
             }
         }
@@ -73,6 +81,9 @@ pipeline {
         docker system prune -a -f 
         docker-compose -f docker-compose.yaml down
         '''
+    }
+    failure { 
+        echo "oops sth failed"
     }
 }
 }
