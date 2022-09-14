@@ -18,7 +18,7 @@ pipeline {
                     sh "python3 -m virtualenv venv"
                     sh "chmod +x venv/"
                     sh "ls"
-                    sh "python3 venv/bin/activate"
+                    sh ". venv/bin/activate"
                 }
             }
         }
