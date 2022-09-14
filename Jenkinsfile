@@ -56,8 +56,16 @@ pipeline {
                     docker system prune -a -f 
                     docker-compose -f docker-compose.yaml down
                     docker-compose -f docker-compose.yaml up --build   -d
-                    docker-compose -f docker-compose.yaml  exec -T web bump2version minor
+                    
                     '''
+                    // docker-compose -f docker-compose.yaml  exec -T web bump2version minor
+                }
+            }
+        }
+        stage("Bump the version") { 
+            steps { 
+                script {
+                   sh "bump2version  patch"
                 }
             }
         }
