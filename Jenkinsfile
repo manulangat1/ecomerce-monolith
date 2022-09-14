@@ -34,17 +34,12 @@ pipeline {
             steps { 
                 script{
                     echo "now what"
-                    // sh "docker-compose -f docker-compose.yaml up -d "
                     sh ''' 
                     docker system prune -a -f 
                     docker-compose -f docker-compose.yaml down
                     docker-compose -f docker-compose.yaml up --build   -d
                     docker-compose -f docker-compose.yaml  exec -T web bump2version minor
                     '''
-                    // sh "docker ps"
-                    // sh "docker-compose -f docker-compose.yaml  exec web python3 manage.py migrate"
-                    // sh "docker-compose -f docker-compose.yaml  logs -f"
-                    // docker-compose -f docker-compose.yaml  logs -f
                 }
             }
         }
