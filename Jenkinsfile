@@ -54,9 +54,11 @@ pipeline {
                     
                     echo" build number ${BUILD_NUMBER}"
                     def matchers = readFile("__init__.py") =~  "version = (.+)"
-                    // echo "${matchers[0][1]}"
+                    echo "${matchers[0][1]}"
+
                     def vers = matchers[0][1]
                     echo "${vers}"
+                    matchers = null
                     // def newVersion = matchers[0][1]
                     // echo "${newVersion}"
                     // sh "docker-compose -f docker-compose.yaml down"
