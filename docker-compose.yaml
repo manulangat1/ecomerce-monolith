@@ -10,7 +10,7 @@ services:
     image: manulangat/django-ecomerce-monolith
     volumes:
       - static_volume:/home/app/web/staticfiles
-      - .:/app
+      - .:/home/app/web
 
     expose:
       - 8000
