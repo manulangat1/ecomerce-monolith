@@ -76,7 +76,7 @@ pipeline {
                     // def newVersion = matchers[0][1]
                     // echo "${newVersion}"
                     // sh "docker-compose -f docker-compose.yaml down"
-
+// now
                     withCredentials([usernamePassword(credentialsId:"github-creds-hook", usernameVariable:'USER', passwordVariable:'PASS')]) { 
                         sh '''
                         chmod +x venv/
