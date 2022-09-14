@@ -54,26 +54,28 @@ pipeline {
                     
                     echo" build number ${BUILD_NUMBER}"
                     def matchers = readFile("__init__.py") =~  "version = (.+)"
-                    echo "${matchers[0][1]}"
+                    // echo "${matchers[0][1]}"
+                    def vers = matchers[0][1]
+                    echo "${vers}"
                     // def newVersion = matchers[0][1]
                     // echo "${newVersion}"
                     // sh "docker-compose -f docker-compose.yaml down"
 
-                    // withCredentials([usernamePassword(credentialsId:"github-credentials", usernameVariable:'USER', passwordVariable:'PASS')]) { 
-                    //     sh   "git config --global user.name jenkins"
-                    //     sh "git config --global user.email jenkins@jobs.com"
-                    //     sh "git status"
-                    // }
+                    withCredentials([usernamePassword(credentialsId:"github-credentials", usernameVariable:'USER', passwordVariable:'PASS')]) { 
+                        sh   "git config --global user.name jenkins"
+                        sh "git config --global user.email jenkins@jobs.com"
+                        sh "git status"
+                    }
                 }
             }
         }
     }
+    post{ 
+    always { 
+        sh '''
+        docker system prune -a -f 
+        docker-compose -f docker-compose.yaml down
+        '''
+    }
 }
-// post{ 
-//     always { 
-//         sh '''
-//         docker system prune -a -f 
-//         docker-compose -f docker-compose.yaml down
-//         '''
-//     }
-// }
+}
