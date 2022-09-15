@@ -111,24 +111,6 @@ pipeline {
                         
                         
                         '''
-                        // touch hh
-                        // git add .
-                        // git commit -m "ci-version bump"
-                        // git push origin HEAD:${BRANCH_NAME}
-                        // git add .
-                        // git commit -m "ci-version bump"
-                        // git push --tags -f
-                        // git push origin HEAD:${BRANCH_NAME}
-                        
-                        // sh   "git config --global user.name jenkins"
-                        // sh "git config --global user.email jenkins@jobs.com"
-                        // sh "git status"
-                        // sh "git branch"
-                        // sh "git config --list"
-                        // sh 'git remote set-url origin https://$USER:$PASS@github.com/manulangat1/ecomerce-monolith.git'
-                        // sh "git add ."
-                        // sh 'git commit -m "ci-version bump" '
-                        // sh "git push origin HEAD:${BRANCH_NAME}"
                         echo "Done pushing to github"
                     }
                 }
@@ -142,6 +124,7 @@ pipeline {
         docker-compose -f docker-compose.yaml down
         rm -rf venv
         '''
+        emailext body: 'A Test EMail', recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']], subject: 'Test'
     }
     failure { 
         echo "oops sth failed"
