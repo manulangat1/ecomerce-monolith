@@ -12,9 +12,13 @@ pipeline {
             }
         }
         stage('SonarQube Analysis') {
-                def scannerHome = tool 'SonarScanner';
-                withSonarQubeEnv() {
-                sh "${scannerHome}/bin/sonar-scanner"
+                steps {
+                    script {
+                        def scannerHome = tool 'SonarScanner';
+                            withSonarQubeEnv() {
+                            sh "${scannerHome}/bin/sonar-scanner"
+                            }
+                    }
                 }
             }
         stage("Create a virtual enviroment") { 
@@ -130,17 +134,6 @@ pipeline {
                 }
             }
         }
-        // stage("Push image to Dockerhub") { 
-        //     steps { 
-        //         script {
-        //             withCredentials([usernamePassword(credentialsId:'dockerhub-id', usernameVariable:"USER" , passwordVariable:"PASS")]) { 
-        //                 // sh " echo ${PASS} | docker login -u $USER --stdin-"
-        //                 sh "echo $PASS | docker login -u $USER --password-stdin"
-        //                 sh "docker push manulangat/django-ecomerce-monolith-${BUILD_NUMBER}.${version}"
-        //             }
-        //         }
-        //     }
-        // }
     }
     post{ 
     always { 
